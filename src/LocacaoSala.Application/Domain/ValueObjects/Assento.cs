@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LocacaoSala.Application.Domain.ValueObjects
+﻿namespace LocacaoSala.Application.Domain.ValueObjects
 {
     public class Assento
     {
-        public Assento(int total, int reservado)
+        public Assento(int id, Voucher voucherId)
         {
-            Total = total;
-            Reservado = reservado;
+            Id = id;
+            VoucherId = voucherId;
         }
 
-        public int Total { get; set; }
-        public int Reservado { get; set; }
+        public int Id { get; private set; }
+        public Voucher VoucherId { get; private set; }
 
-        public int Disponivel { get { return Total - Reservado; } }
+        public override bool Equals(object obj)
+        {
+            var assento = obj as Assento;
+            return !ReferenceEquals(assento, null) && assento.Id == Id;
+        }
 
+        public override int GetHashCode()
+        {
+            return (GetType().GetHashCode() * 907) + Id.GetHashCode();
+        }
     }
 }

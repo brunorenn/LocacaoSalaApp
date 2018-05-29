@@ -1,10 +1,6 @@
 ﻿using LocacaoSala.Application.Domain.Enums;
 using LocacaoSala.Application.Domain.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocacaoSala.Application.Domain.Entities
 {
@@ -14,21 +10,36 @@ namespace LocacaoSala.Application.Domain.Entities
         {
         }
 
-        public Pessoa(Guid id, string nome): base(id, nome)
+        public Pessoa(Guid id, string nome, VoucherParticipante voucherParticipante) : base(id, nome)
         {
+            if (Id == Guid.Empty)
+                throw new Exception("Id da pessoa está vazio");
 
+            if (string.IsNullOrEmpty(nome))
+                throw new Exception("Nome está em branco");
+
+            VoucherParticipante = voucherParticipante;
         }
 
-        public TipoPessoaEnum TipoPessoa { get; set; }
-        public Voucher Voucher { get; set; }
+        public TipoPessoaEnum Tipo { get; protected set; }
+        public VoucherParticipante VoucherParticipante { get; private set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public override void Inativar()
         {
             base.Inativar();
-            TipoPessoa = TipoPessoaEnum.CancelouVoucher;
+            Tipo = TipoPessoaEnum.CancelouVoucher;
         }
+
+        public override bool Equals(object obj)
+        {
+            var pessoa = obj as Pessoa;
+            return !ReferenceEquals(pessoa, null) && pessoa.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return (GetType().GetHashCode() * 907) + Id.GetHashCode();
+        }
+
     }
 }

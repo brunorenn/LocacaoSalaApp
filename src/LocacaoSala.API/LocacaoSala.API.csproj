@@ -116,6 +116,10 @@
       <Project>{41FBB308-AFB2-41EF-83AA-B9846DD39C3C}</Project>
       <Name>LocacaoSala.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LocacaoSala.Repository\LocacaoSala.Repository.csproj">
+      <Project>{6F4354E8-8510-43F5-9B73-4386C9E0C389}</Project>
+      <Name>LocacaoSala.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

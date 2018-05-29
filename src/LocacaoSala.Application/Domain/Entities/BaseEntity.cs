@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocacaoSala.Application.Domain.Entities
 {
     public abstract class BaseEntity
     {
-        public BaseEntity(Guid id) : this(id, "")
+        public BaseEntity(Guid id) : this(id, string.Empty)
         {
         }
 
@@ -20,7 +16,7 @@ namespace LocacaoSala.Application.Domain.Entities
         }
 
         public Guid Id { get; private set; }
-        public string Nome { get; set; }
+        public string Nome { get; private set; }
         public bool Ativo { get; private set; }
 
         public void Ativar()

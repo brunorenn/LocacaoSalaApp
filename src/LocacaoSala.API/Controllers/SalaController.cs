@@ -1,6 +1,7 @@
 ﻿using LocacaoSala.Application.Domain.Commands;
 using LocacaoSala.Application.Domain.Handlers;
 using LocacaoSala.Application.Domain.ViewModels;
+using LocacaoSala.Repository;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -10,15 +11,19 @@ namespace LocacaoSala.API.Controllers
     [RoutePrefix("v1")]
     public class SalaController : ApiController
     {
+        private SalaCommandHandler _salaCommandHandler;
+        public SalaController()
+        {
+            _salaCommandHandler = new SalaCommandHandler(new SalaRepository());
+        }
+
         [HttpPost]
         [Route("Sala")]
         public CommandResult Incluir(IncluirSalaCommand command)
         {
             try
             {
-                var result = SalaCommandHandler.Handle(command);
-
-                return result;
+                return _salaCommandHandler.Handle(command);
             }
             catch (Exception ex)
             {
@@ -32,9 +37,7 @@ namespace LocacaoSala.API.Controllers
         {
             try
             {
-                var result = SalaCommandHandler.Handle(command);
-
-                return result;
+                return _salaCommandHandler.Handle(command);
             }
             catch (Exception ex)
             {
@@ -53,9 +56,7 @@ namespace LocacaoSala.API.Controllers
                     Id = id
                 };
 
-                var result = SalaCommandHandler.Handle(command);
-
-                return result;
+                return _salaCommandHandler.Handle(command);
             }
             catch (Exception ex)
             {
@@ -65,13 +66,11 @@ namespace LocacaoSala.API.Controllers
 
         [HttpGet]
         [Route("Sala")]
-        public List<SalaViewModel> ObterTodos()
+        public IEnumerable<SalaViewModel> ObterTodos()
         {
             try
             {
-                var result = SalaCommandHandler.Handle();
-
-                return result;
+                return _salaCommandHandler.Handle();
             }
             catch
             {
@@ -85,7 +84,7 @@ namespace LocacaoSala.API.Controllers
         {
             try
             {
-                return SalaCommandHandler.Handle(id);
+                return _salaCommandHandler.Handle(id);
             }
             catch
             {
