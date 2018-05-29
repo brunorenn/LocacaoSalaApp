@@ -14,3 +14,4 @@ _ReSharper.*
 packages/
 node_modules/
 Ankh.NoLoad
+*package-lock.json
