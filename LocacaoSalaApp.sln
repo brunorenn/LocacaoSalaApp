@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LocacaoSala.Backend", "LocacaoSala.Backend", "{A28CD370-F03F-4B5B-9421-02D6D47CE197}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LocacaoSala.Application", "LocacaoSala.Application", "{ACC0A2D8-FA6C-4D98-B8F3-C851B22D4C24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LocacaoSala.Repository", "LocacaoSala.Repository", "{499FEA02-D7A2-455C-95DD-5AD44A6A8100}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocacaoSala.Application", "src\LocacaoSala.Application\LocacaoSala.Application.csproj", "{41FBB308-AFB2-41EF-83AA-B9846DD39C3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocacaoSala.API", "src\LocacaoSala.API\LocacaoSala.API.csproj", "{E322C406-EA33-45B9-BE65-78BEFD3C4FB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41FBB308-AFB2-41EF-83AA-B9846DD39C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41FBB308-AFB2-41EF-83AA-B9846DD39C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41FBB308-AFB2-41EF-83AA-B9846DD39C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41FBB308-AFB2-41EF-83AA-B9846DD39C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E322C406-EA33-45B9-BE65-78BEFD3C4FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E322C406-EA33-45B9-BE65-78BEFD3C4FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E322C406-EA33-45B9-BE65-78BEFD3C4FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E322C406-EA33-45B9-BE65-78BEFD3C4FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{41FBB308-AFB2-41EF-83AA-B9846DD39C3C} = {ACC0A2D8-FA6C-4D98-B8F3-C851B22D4C24}
+		{E322C406-EA33-45B9-BE65-78BEFD3C4FB3} = {A28CD370-F03F-4B5B-9421-02D6D47CE197}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2A7BE51-81BE-441D-A054-5C0B812A912D}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,37 @@
+<div class="container">
+  <header class="header">
+    <h1 class="text-center">Locação Sala App</h1>
+  </header>
+  <div class="rounded">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Quantidade de assentos totais</th>
+              <th>Quantidade de assentos disponíveis</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let sala of salas">
+                  <td>{{ sala.Id }}</td>
+                  <td>{{ sala.Nome }}</td>
+                  <td class="text-right">{{ sala.QuantidadeAssentos }}</td>
+                  <td class="text-right">{{ sala.QuantidadeAssentosDisponiveis }}</td>
+                  <td>
+                    <button type="button" class="btn btn-warning btn-sm" (click)="editar(sala.Id)">Editar</button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="excluir(sala.Id)">Excluir</button>
+                  </td>
+                </tr>
+          </tbody>
+        </table>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center">
+        <button class="btn btn-small btn-primary" (click)="incluir()">Incluir</button>
+      </div>
+    </div>
+  </div>
+</div>
