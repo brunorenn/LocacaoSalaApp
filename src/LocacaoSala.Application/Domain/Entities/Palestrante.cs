@@ -9,22 +9,12 @@ namespace LocacaoSala.Application.Domain.Entities
 {
     public class Palestrante : Pessoa
     {
-        public Palestrante(Guid id, string nome, Voucher voucher) : this(id, nome, new VoucherParticipante(voucher.Id, 0, DateTime.Now), new List<string>())
+        public Palestrante(Guid id, string nome, Voucher voucher) : base(id, nome, TipoPessoaEnum.Palestrante, new VoucherParticipante(voucher.Id, 0, DateTime.Now))
         {
-        }
-
-        public Palestrante(Guid id, string nome, VoucherParticipante voucherParticipante, List<string> qualificacoes) : base(id, nome, voucherParticipante)
-        {
-            Tipo = TipoPessoaEnum.Palestrante;
             _qualificacoes = new List<string>();
-
-            if (VoucherParticipante.Valor != 0)
-                throw new InvalidOperationException("Valor do voucher do palestrante diferente de 0");
-
-            qualificacoes.ForEach(IncluirQualificacao);
         }
 
-        private List<string> _qualificacoes;
+        private List<string> _qualificacoes { get; set; }
         public IReadOnlyList<string> Qualificacoes { get { return _qualificacoes.AsReadOnly(); } }
 
         public void IncluirQualificacao(string qualificacao)

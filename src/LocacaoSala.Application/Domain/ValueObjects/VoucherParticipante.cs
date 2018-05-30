@@ -13,6 +13,7 @@ namespace LocacaoSala.Application.Domain.ValueObjects
         public Decimal Valor { get; private set; }
         public DateTime DataCompra { get; private set; }
 
+
         public override bool Equals(object obj)
         {
             var valueObject = obj as VoucherParticipante;

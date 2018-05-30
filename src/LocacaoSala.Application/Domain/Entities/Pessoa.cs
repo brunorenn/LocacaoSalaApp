@@ -6,40 +6,29 @@ namespace LocacaoSala.Application.Domain.Entities
 {
     public abstract class Pessoa : BaseEntity
     {
-        public Pessoa(Guid id) : base(id)
-        {
-        }
-
-        public Pessoa(Guid id, string nome, VoucherParticipante voucherParticipante) : base(id, nome)
+        public Pessoa(Guid id, string nome, TipoPessoaEnum tipoPessoaEnum, VoucherParticipante voucherParticipante) : base(id, nome)
         {
             if (Id == Guid.Empty)
                 throw new Exception("Id da pessoa está vazio");
 
-            if (string.IsNullOrEmpty(nome))
-                throw new Exception("Nome está em branco");
+            if (string.IsNullOrEmpty(Nome))
+                throw new Exception("Nome da pessoa está vazio");
 
+            TipoPessoa = tipoPessoaEnum;
             VoucherParticipante = voucherParticipante;
         }
 
-        public TipoPessoaEnum Tipo { get; protected set; }
         public VoucherParticipante VoucherParticipante { get; private set; }
+        public TipoPessoaEnum TipoPessoa { get; private set; }
+        public Voucher Voucher { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Inativar()
         {
             base.Inativar();
-            Tipo = TipoPessoaEnum.CancelouVoucher;
+            TipoPessoa = TipoPessoaEnum.CancelouVoucher;
         }
-
-        public override bool Equals(object obj)
-        {
-            var pessoa = obj as Pessoa;
-            return !ReferenceEquals(pessoa, null) && pessoa.Id == Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return (GetType().GetHashCode() * 907) + Id.GetHashCode();
-        }
-
     }
 }

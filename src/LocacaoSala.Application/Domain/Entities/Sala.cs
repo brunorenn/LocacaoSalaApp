@@ -17,7 +17,7 @@ namespace LocacaoSala.Application.Domain.Entities
         }
 
         public Palestrante Palestrante { get; private set; }
-        public List<Pessoa> _participantes { get; private set; }
+        private List<Pessoa> _participantes { get; set; }
         private List<Assento> _assentos;
 
         public IReadOnlyList<Assento> Assentos { get { return _assentos.AsReadOnly(); } }
@@ -31,17 +31,20 @@ namespace LocacaoSala.Application.Domain.Entities
 
         public void ReservarAssento(Pessoa pessoa)
         {
-            if (_assentos.Any(x => x.VoucherId.Id == pessoa.VoucherParticipante.Id))
+            if (!_assentos.Any(x =>
+                x.Voucher.Id == pessoa.VoucherParticipante.Id))
                 throw new Exception($"Assento já reservado para o voucher {pessoa.VoucherParticipante.Id}");
 
-            if (!_assentos.Any(x => x.VoucherId.Id == pessoa.VoucherParticipante.Id))
-                throw new Exception($"Voucher {pessoa.VoucherParticipante.Id} não vinculado a essa sala");
-
-            if (pessoa.Tipo == TipoPessoaEnum.Palestrante)
+            if (pessoa.TipoPessoa == TipoPessoaEnum.Palestrante)
                 throw new Exception("Nao é possível alocar assento para palestrante");
 
             if (_participantes.Any(x => x.Equals(pessoa)))
                 throw new Exception("Partipante já está vinculado a sala");
+
+            if (_participantes.Any(x => x.Voucher == pessoa.Voucher))
+                throw new Exception("Existem dois participantes com o mesmo voucher");
+
+            _participantes.Add(pessoa);
         }
 
         public int QuantidadeAssentosDisponiveis()
@@ -51,7 +54,7 @@ namespace LocacaoSala.Application.Domain.Entities
 
         public void DisponibilizarAssento(Pessoa pessoa)
         {
-            if (pessoa.Tipo != TipoPessoaEnum.CancelouVoucher)
+            if (pessoa.TipoPessoa != TipoPessoaEnum.CancelouVoucher)
                 throw new Exception("Voucher não foi cancelado");
 
             if (_participantes.Any(x => x.Equals(pessoa)))

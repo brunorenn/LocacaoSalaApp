@@ -2,14 +2,14 @@
 {
     public class Assento
     {
-        public Assento(int id, Voucher voucherId)
+        public Assento(int id, Voucher voucher)
         {
             Id = id;
-            VoucherId = voucherId;
+            Voucher = voucher;
         }
 
         public int Id { get; private set; }
-        public Voucher VoucherId { get; private set; }
+        public Voucher Voucher { get; private set; }
 
         public override bool Equals(object obj)
         {
