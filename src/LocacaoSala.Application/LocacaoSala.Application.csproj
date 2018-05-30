@@ -30,7 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.7.5.2\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="MediatR, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MediatR.4.1.0\lib\net45\MediatR.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.ComponentModel.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ComponentModel.Primitives.4.3.0\lib\net45\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,8 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Commands\BaseSalaCommand.cs" />
-    <Compile Include="Domain\Commands\CommandResult.cs" />
+    <Compile Include="Domain\Commands\SalaBaseCommand.cs" />
     <Compile Include="Domain\Commands\EditarSalaCommand.cs" />
     <Compile Include="Domain\Commands\ExcluirSalaCommand.cs" />
     <Compile Include="Domain\Commands\IncluirSalaCommand.cs" />
@@ -54,6 +66,10 @@
     <Compile Include="Domain\Enums\TipoPessoaEnum.cs" />
     <Compile Include="Domain\Handlers\SalaCommandHandler.cs" />
     <Compile Include="Domain\Repositories\ISalaRepository.cs" />
+    <Compile Include="Domain\Validations\EditarSalaCommandValidation.cs" />
+    <Compile Include="Domain\Validations\ExcluirSalaCommandValidation.cs" />
+    <Compile Include="Domain\Validations\IncluirSalaCommandValidation.cs" />
+    <Compile Include="Domain\Validations\SalaValidation.cs" />
     <Compile Include="Domain\ValueObjects\Assento.cs" />
     <Compile Include="Domain\ValueObjects\Voucher.cs" />
     <Compile Include="Domain\ValueObjects\VoucherParticipante.cs" />
@@ -66,5 +82,9 @@
       <Name>LocacaoSala.Infra.CrossCutting.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

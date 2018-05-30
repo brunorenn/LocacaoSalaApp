@@ -1,4 +1,4 @@
-﻿namespace LocacaoSala.Application.Domain.Commands
+﻿namespace LocacaoSala.Infra.CrossCutting.Core.Commands
 {
     public class CommandResult
     {

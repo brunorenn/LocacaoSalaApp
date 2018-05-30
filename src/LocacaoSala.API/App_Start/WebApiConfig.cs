@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using LocacaoSala.Infra.CrossCutting.IoC;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -10,6 +8,8 @@ namespace LocacaoSala.API
     {
         public static void Register(HttpConfiguration config)
         {
+            ContainerManager.Load(config);
+
             // Web API configuration and services
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);

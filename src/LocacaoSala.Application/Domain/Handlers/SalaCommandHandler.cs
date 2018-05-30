@@ -3,12 +3,19 @@ using LocacaoSala.Application.Domain.Entities;
 using LocacaoSala.Application.Domain.Repositories;
 using LocacaoSala.Application.Domain.ValueObjects;
 using LocacaoSala.Application.Domain.ViewModels;
+using LocacaoSala.Infra.CrossCutting.Core.Commands;
+using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace LocacaoSala.Application.Domain.Handlers
 {
-    public class SalaCommandHandler
+    public class SalaCommandHandler: IRequestHandler<IncluirSalaCommand, CommandResult>,
+                                     IRequestHandler<EditarSalaCommand, CommandResult>,
+                                     IRequestHandler<ExcluirSalaCommand, CommandResult>
+                                      
     {
         private ISalaRepository _salaRepository;
 
@@ -17,66 +24,17 @@ namespace LocacaoSala.Application.Domain.Handlers
             _salaRepository = salaRepository;
         }
 
-        public CommandResult Handle(IncluirSalaCommand command)
+        public IEnumerable<SalaViewModel> Handle()
         {
-            if (string.IsNullOrEmpty(command.Nome))
-            {
-                return new CommandResult(false, "Nome da sala está em branco");
-            }
-            if (command.QuantidadeAssentos <= 0)
-            {
-                return new CommandResult(false, "Quantidade de assentos deve ser maior que 0");
-            }
-
-            var assentos = new List<Assento>();
-
-            for (int i = 0; i < command.QuantidadeAssentos; i++)
-            {
-                assentos.Add(new Assento(i + 1, new Voucher(Guid.NewGuid())));
-            }
-
-            var sala = new Sala(Guid.NewGuid(), command.Nome, assentos);
-
-            _salaRepository.Incluir(sala);
-
-            return new CommandResult(true, "Sala incluida com sucesso");
+            return _salaRepository.ObterTodos();
         }
 
-        public CommandResult Handle(EditarSalaCommand command)
+        public SalaViewModel Handle(Guid id)
         {
-            if (command.Id == Guid.Empty)
-            {
-                return new CommandResult(false, "Informe o Id da sala");
-            }
-            if (string.IsNullOrEmpty(command.Nome))
-            {
-                return new CommandResult(false, "Nome da sala está em branco");
-            }
-            if (command.QuantidadeAssentos <= 0)
-            {
-                return new CommandResult(false, "Quantidade de assentos deve ser maior que 0");
-            }
-
-            if (!_salaRepository.Existe(command.Id))
-            {
-                return new CommandResult(false, "Sala não encontrada");
-            }
-
-            var assentos = new List<Assento>();
-
-            for (int i = 0; i < command.QuantidadeAssentos; i++)
-            {
-                assentos.Add(new Assento(i + 1, new Voucher(Guid.NewGuid())));
-            }
-
-            var salaEditada = new Sala(Guid.NewGuid(), command.Nome, assentos);
-
-            _salaRepository.Atualizar(salaEditada);
-
-            return new CommandResult(true, "Sala editada com sucesso");
+            return _salaRepository.Obter(id);
         }
 
-        public CommandResult Handle(ExcluirSalaCommand command)
+        public async Task<CommandResult> Handle(ExcluirSalaCommand command, CancellationToken cancellationToken)
         {
             if (command.Id == Guid.Empty)
             {
@@ -90,17 +48,44 @@ namespace LocacaoSala.Application.Domain.Handlers
 
             _salaRepository.Excluir(command.Id);
 
-            return new CommandResult(true, "Sala excluida com sucesso");
+            return await Task.FromResult(new CommandResult(true, "Sala excluida com sucesso"));
         }
 
-        public IEnumerable<SalaViewModel> Handle()
+        public async Task<CommandResult> Handle(EditarSalaCommand command, CancellationToken cancellationToken)
         {
-            return _salaRepository.ObterTodos();
+            if (!_salaRepository.Existe(command.Id))
+            {
+                return new CommandResult(false, "Sala não encontrada");
+            }
+
+            var assentos = new List<Assento>();
+
+            for (int i = 0; i < command.QuantidadeAssentos; i++)
+            {
+                assentos.Add(new Assento(i + 1, new Voucher(Guid.NewGuid())));
+            }
+
+            var salaEditada = new Sala(command.Id, command.Nome, assentos);
+
+            _salaRepository.Atualizar(salaEditada);
+
+            return await Task.FromResult(new CommandResult(true, "Sala editada com sucesso"));
         }
 
-        public SalaViewModel Handle(Guid id)
+        public async Task<CommandResult> Handle(IncluirSalaCommand command, CancellationToken cancellationToken)
         {
-            return _salaRepository.Obter(id);
+            var assentos = new List<Assento>();
+
+            for (int i = 0; i < command.QuantidadeAssentos; i++)
+            {
+                assentos.Add(new Assento(i + 1, new Voucher(Guid.NewGuid())));
+            }
+
+            var sala = new Sala(Guid.NewGuid(), command.Nome, assentos);
+
+            _salaRepository.Incluir(sala);
+
+            return await Task.FromResult(new CommandResult(true, "Sala incluida com sucesso"));
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using LocacaoSala.Infra.CrossCutting.Core.Commands;
 
 namespace LocacaoSala.Application.Domain.Commands
 {
-    public abstract class BaseSalaCommand
+    public abstract class SalaBaseCommand: Command
     {
-        public Guid UId { get; set; }
         public string Nome { get; set; }
         public int QuantidadeAssentos { get; set; }
     }
