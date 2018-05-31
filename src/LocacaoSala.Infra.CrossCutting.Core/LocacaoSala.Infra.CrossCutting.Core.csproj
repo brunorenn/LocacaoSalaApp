@@ -45,10 +45,11 @@
   <ItemGroup>
     <Compile Include="Bus\MediatorHandler.cs" />
     <Compile Include="Bus\IMediatorHandler.cs" />
-    <Compile Include="Core\Commands\Command.cs" />
-    <Compile Include="Core\Commands\CommandResult.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\Query.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

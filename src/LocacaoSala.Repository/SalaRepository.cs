@@ -4,6 +4,7 @@ using LocacaoSala.Application.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using LocacaoSala.Application.Domain.ViewModels;
+using LocacaoSala.Application.Domain.Queries;
 
 namespace LocacaoSala.Repository
 {
@@ -49,15 +50,17 @@ namespace LocacaoSala.Repository
             }).FirstOrDefault();
         }
 
-        public IEnumerable<SalaViewModel> ObterTodos()
+        public IEnumerable<SalaViewModel> ObterTodos(SalaListQuery filter)
         {
-           return _salas.Select(salaDb => new SalaViewModel
+            return _salas.Select(salaDb => new SalaViewModel
             {
                 Id = salaDb.Id,
                 Nome = salaDb.Nome,
                 QuantidadeAssentos = salaDb.Assentos.Count,
                 QuantidadeAssentosDisponiveis = salaDb.QuantidadeAssentosDisponiveis()
-            });
+            })
+             .Take(filter.Take)
+             .Skip(filter.Skip);
         }
     }
 }

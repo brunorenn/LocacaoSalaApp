@@ -18,5 +18,12 @@ namespace LocacaoSala.Infra.CrossCutting.Core.Bus
         {
             return await _mediator.Send(command);
         }
+
+        public async Task<TResult> Query<TInput, TResult>(TInput parameter)
+            where TInput : IRequest<TResult>
+            where TResult : class
+        {
+            return await _mediator.Send(parameter);
+        }
     }
 }

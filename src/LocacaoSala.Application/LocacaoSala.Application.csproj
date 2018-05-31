@@ -64,7 +64,12 @@
     <Compile Include="Domain\Entities\Sala.cs" />
     <Compile Include="Domain\Entities\Voluntario.cs" />
     <Compile Include="Domain\Enums\TipoPessoaEnum.cs" />
+    <Compile Include="Domain\Factories\SalaFactory.cs" />
     <Compile Include="Domain\Handlers\SalaCommandHandler.cs" />
+    <Compile Include="Domain\Handlers\SalaQueryHandler.cs" />
+    <Compile Include="Domain\Queries\SalaListQuery.cs" />
+    <Compile Include="Domain\Queries\SalaQuery.cs" />
+    <Compile Include="Domain\Repositories\ISalaReadOnlyRepository.cs" />
     <Compile Include="Domain\Repositories\ISalaRepository.cs" />
     <Compile Include="Domain\Validations\EditarSalaCommandValidation.cs" />
     <Compile Include="Domain\Validations\ExcluirSalaCommandValidation.cs" />
