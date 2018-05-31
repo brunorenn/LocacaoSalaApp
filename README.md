@@ -1,2 +1,2 @@
 # LocacaoSalaApp
-Demo para palestra de C# para iniciantes
+Demo de C# e Angular para iniciamente/intermediário.
