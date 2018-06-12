@@ -21,7 +21,7 @@ namespace LocacaoSala.API.Controllers
         }
 
         [HttpPost]
-        [Route("Sala")]
+        [Route("sala")]
         public async Task<CommandResult> Incluir(IncluirSalaCommand command)
         {
             try
@@ -35,11 +35,12 @@ namespace LocacaoSala.API.Controllers
         }
 
         [HttpPut]
-        [Route("Sala")]
-        public async Task<CommandResult> Editar(EditarSalaCommand command)
+        [Route("sala/{id}")]
+        public async Task<CommandResult> Editar([FromUri]Guid id, EditarSalaCommand command)
         {
             try
             {
+                command.Id = id;
                 return await _handler.Handle(command);
             }
             catch (Exception ex)
@@ -49,7 +50,7 @@ namespace LocacaoSala.API.Controllers
         }
 
         [HttpDelete]
-        [Route("Sala/{id}")]
+        [Route("sala/{id}")]
         public async Task<CommandResult> Excluir(Guid id)
         {
             try
@@ -68,7 +69,7 @@ namespace LocacaoSala.API.Controllers
         }
 
         [HttpGet]
-        [Route("Sala")]
+        [Route("sala")]
         public async Task<IEnumerable<SalaViewModel>> ObterTodos([FromUri] int skip)
         {
             var query = new SalaListQuery { Skip = skip };
@@ -76,7 +77,7 @@ namespace LocacaoSala.API.Controllers
         }
 
         [HttpGet]
-        [Route("Sala/{id}")]
+        [Route("sala/{id}")]
         public async Task<SalaViewModel> Obter(Guid id)
         {
             var query = new SalaQuery { Id = id};
